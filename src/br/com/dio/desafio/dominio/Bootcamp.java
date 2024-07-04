@@ -1,6 +1,7 @@
 package br.com.dio.desafio.dominio;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -14,6 +15,9 @@ public class Bootcamp {
     private Set<Dev> devsInscritos = new HashSet<>();
     private Set<Conteudo> conteudos = new LinkedHashSet<>();
 
+    public long getTempoRestante() {
+        return ChronoUnit.DAYS.between(LocalDate.now(), dataFinal);
+    }
 
     public String getNome() {
         return nome;
@@ -55,12 +59,33 @@ public class Bootcamp {
         this.conteudos = conteudos;
     }
 
+    public void adicionarConteudo(Conteudo conteudo) {
+        this.conteudos.add(conteudo);
+    }
+
+    public void removerConteudo(Conteudo conteudo) {
+        this.conteudos.remove(conteudo);
+    }
+
+    public void adicionarDev(Dev dev) {
+        this.devsInscritos.add(dev);
+    }
+
+    public void removerDev(Dev dev) {
+        this.devsInscritos.remove(dev);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bootcamp bootcamp = (Bootcamp) o;
-        return Objects.equals(nome, bootcamp.nome) && Objects.equals(descricao, bootcamp.descricao) && Objects.equals(dataInicial, bootcamp.dataInicial) && Objects.equals(dataFinal, bootcamp.dataFinal) && Objects.equals(devsInscritos, bootcamp.devsInscritos) && Objects.equals(conteudos, bootcamp.conteudos);
+        return Objects.equals(nome, bootcamp.nome) &&
+                Objects.equals(descricao, bootcamp.descricao) &&
+                Objects.equals(dataInicial, bootcamp.dataInicial) &&
+                Objects.equals(dataFinal, bootcamp.dataFinal) &&
+                Objects.equals(devsInscritos, bootcamp.devsInscritos) &&
+                Objects.equals(conteudos, bootcamp.conteudos);
     }
 
     @Override
